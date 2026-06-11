@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sutraa AI Labs</title>
+
+<link rel="icon" type="image/png" href="assets/images/Logo_Sutra_ai.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Top Bar */
+
+.contact-info a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.contact-info i {
+  margin-right: 6px;
+}
+
+.contact-info a:hover {
+  color: #ffd700;
+}
+
+
+.top-bar {
+  background: linear-gradient(90deg, #5f2c82, #49a09d);
+  color: white;
+  padding: 8px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social a {
+  color: white;
+  margin-left: 15px;
+  font-size: 18px;
+  transition: 0.3s;
+  text-decoration:none;
+}
+
+.social a:hover {
+  color: #ffd700;
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 35px;   /* reduced height */
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index:1000;
+}
+
+.logo img {
+  height: 55px;   /* smaller logo */
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;      /* less spacing */
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links a{
+   position:relative;
+   font-weight:600;
+   transition:.3s;
+}
+
+.nav-links a::after{
+   content:"";
+   position:absolute;
+   left:0;
+   bottom:-5px;
+   width:0;
+   height:2px;
+   background:#4a7bdc;
+   transition:.3s;
+}
+
+.nav-links a:hover::after{
+   width:100%;
+}
+
+.nav-links a:hover{
+   color:#4a7bdc;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  width: 280px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all .3s ease;
+  z-index: 2000;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* MINI CARDS */
+.mini-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 12px;
+}
+
+.mini-card {
+  background: #f4f6fb;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.mini-card i {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #4a7bdc;
+}
+
+.mini-card:hover {
+  background: #e6ecff;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(74,123,220,.2);
+}
+
+/* View all */
+.view-all {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  color: #4a7bdc;
+  border-top: 1px solid #eee;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 85vh;
+  background: url("assets/images/hero_image.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.hero-content {
+  position: relative;
+  color: white;
+  max-width: 600px;
+  margin-left: 60px;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero p {
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: #ff6a00;
+  color: white;
+}
+
+.btn-secondary {
+  border: 2px solid white;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Floating Button */
+.floating-call-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #4a7bdc;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  z-index:999;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .nav-links { display:none; }
+  .hero { text-align:center; justify-content:center; }
+  .hero-content { margin:20px; }
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10000; /* ADD THIS */
+}
+
+/* Glass Effect + Animation */
+.modal-content {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  width: 90%;
+  max-width: 650px;
+  padding: 30px;
+  border-radius: 16px;
+  position:relative;
+  z-index:10000;
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+
+  animation: popup 0.35s ease;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Heading */
+.modal h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* FORM */
+/* FORM ROW FIX */
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.field {
+  flex: 1;
+  min-width: 0; /* 🔥 prevents overlap */
+}
+
+/* TEXT COLOR FIX */
+.modal-content,
+.modal-content label,
+.modal-content h2 {
+  color: white;
+}
+
+.field label::before {
+  content: "* ";
+  color: red;
+}
+
+/* INPUTS FIX */
+.field input,
+.field select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.15);
+  color: white;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box; /* 🔥 IMPORTANT */
+}
+
+/* Placeholder white */
+.field input::placeholder,
+textarea::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+/* SELECT TEXT */
+.field select {
+  color: rgb(149, 136, 136);
+}
+
+/* PHONE BOX FIX */
+.phone-box {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.15);
+}
+
+.phone-box span {
+  padding: 12px;
+  background: rgba(255,255,255,0.25); /* 🔥 match glass */
+  color: white;
+}
+
+.phone-box input {
+  border: none;
+  flex: 1;
+  background: transparent;
+  color: white;
+}
+
+/* FIX TEXTAREA WIDTH */
+textarea {
+  width: 100%;
+}
+
+/* BUTTON ALIGN */
+.submit-btn {
+  background: #ff6a00;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* MOBILE FIX */
+@media(max-width:768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    padding: 20px;
+    color: white;
+    background: rgba(0,0,0,0.35);
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+
+  <!-- LEFT SIDE (CALL) -->
+  <div class="contact-info">
+    <a href="tel:+919028292763"
+      onclick="return confirm('Call Sutraa AI Labs now?')">
+      <i class="fa-solid fa-phone"></i> +91-9028292763
+    </a>
+  </div>
+
+  <!-- RIGHT SIDE (SOCIAL) -->
+<div class="social">
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/@SUTRA_AI_LABS" 
+     target="_blank">
+    <i class="fab fa-youtube"></i>
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/in/sutra-ai-labs-8b7098410" 
+     target="_blank">
+    <i class="fab fa-linkedin"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/sutra_ai_labs/" 
+     target="_blank">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+</div>
+
+</div>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo">
+    <a href="sutra_ai_main_page.html">
+      <img src="assets/images/Logo_Sutra_ai.png">
+    </a>
+  </div>
+
+  <div class="nav-links">
+
+    <!-- ALL COURSES -->
+    <div class="dropdown">
+      <a href="syllabus.html">All Courses</a>
+
+      <div class="dropdown-content">
+        <div class="mini-cards">
+
+          <div class="mini-card" onclick="goCourse('java')">
+            <i class="fa-brands fa-java"></i>
+            <span>Java</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('python')">
+            <i class="fa-brands fa-python"></i>
+            <span>Python</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-analyst')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Data Analyst</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-scientist')">
+            <i class="fa-solid fa-brain"></i>
+            <span>Data Scientist</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('aptitude')">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Aptitude</span>
+          </div>
+
+        </div>
+
+        <a href="syllabus.html" class="view-all">View All Courses →</a>
+      </div>
+    </div>
+
+    <!-- ONLINE COURSES (same UI) -->
+    <div class="dropdown">
+      <a href="syllabus.html">Online Courses</a>
+
+      <div class="dropdown-content">
+        <div class="mini-cards">
+
+          <div class="mini-card" onclick="goCourse('java')">
+            <i class="fa-brands fa-java"></i>
+            <span>Java</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('python')">
+            <i class="fa-brands fa-python"></i>
+            <span>Python</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-analyst')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Data Analyst</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-scientist')">
+            <i class="fa-solid fa-brain"></i>
+            <span>Data Scientist</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('aptitude')">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Aptitude</span>
+          </div>
+
+        </div>
+
+        <a href="syllabus.html" class="view-all">View All Courses →</a>
+      </div>
+    </div>
+
+    <a href="Corporate_Training_page.html">Corporate Training</a>
+    <a href="placement.html">Placements</a>
+    <a href="#" onclick="openWhatsApp()">Contact Us</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Transform Your Future with 
+      <span style="color:#ff6a00;">Data Science & AI</span>
+    </h1>
+      <div style="
+          display:inline-block;
+          background:rgba(255,255,255,.15);
+          padding:8px 15px;
+          border-radius:30px;
+          margin-bottom:20px;
+          backdrop-filter:blur(10px);">
+          🚀 100% Practical Training | Live Projects | Placement Support
+      </div>
+    <p>Learn Python, SQL, Machine Learning, Deep Learning & NLP with immersive, 
+      real-time projects and practical training. Become job-ready with Sutra AI Labs.</p>
+
+    <a href="#" class="btn btn-primary" onclick="openModal('enroll'); return false;">Enroll Now</a>
+    <a href="#" class="btn btn-secondary" onclick="openModal('demo'); return false;">Book Demo</a>
+  </div>
+</section>
+
+<a href="#" class="floating-call-btn" onclick="openModal('callback'); return false;">📞 Request a Call Back </a>
+
+<!-- UNIVERSAL MODAL -->
+<div id="mainModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <h2 id="modalTitle">Enroll now</h2>
+
+    <form onsubmit="handleSubmit(event)">
+
+      <!-- ROW 1 -->
+      <div class="form-row">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+      </div>
+
+      <!-- ROW 2 -->
+      <div class="form-row">
+        <div class="field">
+          <label>Mobile Number</label>
+          <div class="phone-box">
+            <span>+91</span>
+            <input type="tel" id="phone" placeholder="Enter mobile number" required pattern="[0-9]{10}">
+          </div>
+        </div>
+
+        <!-- COURSE FIELD (for enroll) -->
+        <div class="field" id="courseField">
+          <label>Course</label>
+          <select id="course">
+            <option value="">Select Course</option>
+            <option>Java</option>
+            <option>Python</option>
+            <option>Data Analyst</option>
+            <option>Data Scientist</option>
+            <option>Aptitude</option>
+          </select>
+        </div>
+
+        <!-- DEMO DATE (for demo) -->
+        <div class="field" id="demoField" style="display:none;">
+          <label>Preferred Date</label>
+          <input type="date" id="demoDate">
+        </div>
+
+        <!-- CALLBACK TIME -->
+        <div class="field" id="callbackField" style="display:none;">
+          <label>Preferred Call Time</label>
+          <input type="text" id="callbackTime" placeholder="Eg: Today 6 PM">
+        </div>
+      </div>
+
+
+      <!-- MESSAGE -->
+      <div class="form-row">
+        <div class="field" style="flex:100%;">
+          <label>Message</label>
+          <textarea id="message" placeholder="Enter your message"></textarea>
+        </div>
+      </div>
+
+      <!-- BUTTON -->
+      <div style="text-align:right;">
+        <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+let currentType = "enroll";
+
+function openModal(type) {
+  currentType = type;
+
+  document.getElementById("mainModal").style.display = "flex";
+
+  let title = document.getElementById("modalTitle");
+  let btn = document.getElementById("submitBtn");
+
+  let courseField = document.getElementById("courseField");
+  let demoField = document.getElementById("demoField");
+  let callbackField = document.getElementById("callbackField");
+
+  courseField.style.display = "none";
+  demoField.style.display = "none";
+  callbackField.style.display = "none";
+
+  if (type === "enroll") {
+    title.innerText = "Enroll Now";
+    btn.innerText = "Enroll";
+    courseField.style.display = "block";
+  } 
+  else if (type === "demo") {
+    title.innerText = "Book Demo";
+    btn.innerText = "Book Demo";
+    demoField.style.display = "block";
+  } 
+  else if (type === "contact") {
+    title.innerText = "Contact Us";
+    btn.innerText = "Send Message";
+  } 
+  else if (type === "callback") {
+    title.innerText = "Request a Call Back";
+    btn.innerText = "Request Call";
+    callbackField.style.display = "block";
+  }
+}
+
+function closeModal() {
+  document.getElementById("mainModal").style.display = "none";
+
+  // RESET FORM
+  document.querySelector("form").reset();
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  let name = document.getElementById("name").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let message = document.getElementById("message").value.trim();
+
+  let extra = "";
+
+  if (currentType === "enroll") {
+    let course = document.getElementById("course").value;
+    extra = "Course: " + course;
+  }
+
+  else if (currentType === "demo") {
+    let date = document.getElementById("demoDate").value;
+    extra = "Preferred Demo Date: " + date;
+  }
+
+  else if (currentType === "callback") {
+    let time = document.getElementById("callbackTime").value;
+    extra = "Preferred Call Time: " + time;
+  }
+
+  let formType = {
+    enroll: "ENROLL NOW",
+    demo: "BOOK DEMO",
+    contact: "CONTACT US",
+    callback: "CALL BACK REQUEST"
+  };
+
+  let whatsappMessage =
+`*${formType[currentType]}*
+
+👤 Name: ${name}
+📧 Email: ${email}
+📱 Phone: ${phone}
+
+${extra}
+
+📝 Message:
+${message}`;
+
+  let whatsappURL =
+`https://wa.me/918793091194?text=${encodeURIComponent(whatsappMessage)}`;
+
+  window.open(whatsappURL, "_blank");
+
+  // RESET FORM AFTER SUBMIT
+  document.querySelector("form").reset();
+
+  // CLOSE POPUP
+  closeModal();
+}
+
+// CLOSE WHEN CLICK OUTSIDE
+window.onclick = function(event) {
+  let modal = document.getElementById("mainModal");
+
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+
+function goCourse(course){
+    window.location.href = "syllabus.html?course=" + course;
+}
+document.documentElement.style.scrollBehavior = "smooth";
+</script>
+
+<script src="js/script.js"></script>
+</body>
+</html>
