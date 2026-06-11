@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Training</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ================= HEADER ================= */
+
+.top-bar {
+  background: linear-gradient(90deg,#5f2c82,#49a09d);
+  color:white;
+  padding:8px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.contact-info a{
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.contact-info a:hover{
+  color:#ffd700;
+}
+
+.social a{
+  color:white;
+  margin-left:15px;
+  font-size:18px;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.social a:hover{
+  color:#ffd700;
+  transform:translateY(-3px);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 35px;   /* reduced height */
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.logo img {
+  height: 55px;   /* smaller logo */
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;      /* less spacing */
+  align-items: center;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#333;
+  font-weight:600;
+  position:relative;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0;
+  height:2px;
+  background:#4a7bdc;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:#4a7bdc;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* Dropdown */
+
+.dropdown{
+  position:relative;
+}
+
+.dropdown-content{
+  position:absolute;
+  top:45px;
+  left:0;
+  width:280px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+  z-index:9999;
+}
+
+.dropdown:hover .dropdown-content{
+  opacity:1;
+  visibility:visible;
+}
+
+.mini-cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:12px;
+}
+
+.mini-card{
+  background:#f4f6fb;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.mini-card:hover{
+  background:#e6ecff;
+}
+
+.mini-card i{
+  display:block;
+  font-size:18px;
+  margin-bottom:5px;
+  color:#4a7bdc;
+}
+
+.view-all{
+  display:block;
+  text-align:center;
+  padding:10px;
+  font-weight:bold;
+  color:#4a7bdc;
+  border-top:1px solid #eee;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.hero {
+  height: 100vh;
+  background: #000 url('assets/images/corporate_hero_image.png') no-repeat center center/cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  top: 0;
+  left: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  gap: 40px;
+  align-items: center;
+}
+
+.left {
+  flex: 1;
+  color: #fff;
+}
+
+.left h1 {
+  font-size: 42px;
+  line-height: 1.3;
+}
+
+.left p {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #ddd;
+}
+
+.form-box {
+  flex: 1;
+  padding: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.input-group,
+.phone-group,
+.textarea-group {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.input-group i,
+.phone-group i {
+  color: #fff;
+  margin-right: 10px;
+}
+
+.input-group input,
+.input-group select,
+.phone-group input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+}
+
+select option {
+  color: #000;
+}
+
+.country {
+  color: #fff;
+  padding: 0 10px;
+  border-right: 1px solid rgba(255,255,255,0.4);
+  margin-right: 10px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+}
+
+::placeholder {
+  color: #eee;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: #4a7bdc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e65c00;
+}
+
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: none;
+  z-index: 9999;
+  font-size: 14px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+@media(max-width: 900px) {
+  .hero-content {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+  <!-- TOP BAR -->
+
+<div class="top-bar">
+
+  <!-- LEFT SIDE (CALL) -->
+  <div class="contact-info">
+    <a href="tel:+919028292763"
+      onclick="return confirm('Call Sutraa AI Labs now?')">
+      <i class="fa-solid fa-phone"></i> +91-9028292763
+    </a>
+  </div>
+
+  <!-- RIGHT SIDE (SOCIAL) -->
+<div class="social">
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/@SUTRA_AI_LABS" 
+     target="_blank">
+    <i class="fab fa-youtube"></i>
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/in/sutra-ai-labs-8b7098410" 
+     target="_blank">
+    <i class="fab fa-linkedin"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/sutra_ai_labs/" 
+     target="_blank">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+</div>
+
+</div>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo">
+    <a href="sutra_ai_main_page.html">
+      <img src="assets/images/Logo_Sutra_ai.png">
+    </a>
+  </div>
+
+  <div class="nav-links">
+
+    <!-- ALL COURSES -->
+    <div class="dropdown">
+      <a href="syllabus.html">All Courses</a>
+
+      <div class="dropdown-content">
+        <div class="mini-cards">
+
+          <div class="mini-card" onclick="goCourse('java')">
+            <i class="fa-brands fa-java"></i>
+            <span>Java</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('python')">
+            <i class="fa-brands fa-python"></i>
+            <span>Python</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-analyst')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Data Analyst</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-scientist')">
+            <i class="fa-solid fa-brain"></i>
+            <span>Data Scientist</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('aptitude')">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Aptitude</span>
+          </div>
+
+        </div>
+
+        <a href="syllabus.html" class="view-all">View All Courses →</a>
+      </div>
+    </div>
+
+    <!-- ONLINE COURSES (same UI) -->
+    <div class="dropdown">
+      <a href="syllabus.html">Online Courses</a>
+
+      <div class="dropdown-content">
+        <div class="mini-cards">
+
+          <div class="mini-card" onclick="goCourse('java')">
+            <i class="fa-brands fa-java"></i>
+            <span>Java</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('python')">
+            <i class="fa-brands fa-python"></i>
+            <span>Python</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-analyst')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Data Analyst</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('data-scientist')">
+            <i class="fa-solid fa-brain"></i>
+            <span>Data Scientist</span>
+          </div>
+
+          <div class="mini-card" onclick="goCourse('aptitude')">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Aptitude</span>
+          </div>
+
+        </div>
+
+        <a href="syllabus.html" class="view-all">View All Courses →</a>
+      </div>
+    </div>
+
+    <a href="Corporate_Training_page.html">Corporate Training</a>
+    <a href="placement.html">Placements</a>
+    <a href="#" onclick="openWhatsApp()">Contact Us</a>
+  </div>
+</div>
+
+
+<!-- POPUP -->
+<div class="popup" id="popupMsg">Message sent successfully ✅</div>
+
+<div class="hero">
+
+  <div class="hero-content">
+
+    <!-- LEFT TEXT -->
+    <div class="left">
+      <h1>Unlock Your Team's Potential with Expert-Led Corporate Training</h1>
+      <p>Empower your workforce with cutting-edge skills in Data Science, AI, and Full Stack Development.</p>
+    </div>
+
+    <!-- FORM -->
+    <form class="form-box" onsubmit="sendToWhatsApp(event, this)">
+
+      <div class="input-group">
+        <i class="fa fa-user"></i>
+        <input type="text" name="fullname" placeholder="Full Name" required minlength="2" maxlength="50">
+      </div>
+
+      <div class="input-group">
+        <i class="fa fa-envelope"></i>
+        <input type="email" name="email" placeholder="Email">
+      </div>
+
+      <div class="phone-group">
+        <i class="fa fa-phone"></i>
+        <div class="country">+91</div>
+        <input type="tel" name="phone" placeholder="Phone Number" required pattern="[0-9]{10}" maxlength="10">
+      </div>
+
+      <div class="input-group">
+        <i class="fa fa-graduation-cap"></i>
+        <select name="training" required>
+          <option value="">Required Training</option>
+          <option value="Data Analyst">Data Analyst</option>
+          <option value="Data Scientist">Data Scientist</option>
+          <option value="AI & ML">AI & ML</option>
+          <option value="Python Full Stack">Python Full Stack</option>
+          <option value="Java Full Stack">Java Full Stack</option>
+        </select>
+      </div>
+
+      <div class="textarea-group">
+        <textarea name="message" placeholder="Message"></textarea>
+      </div>
+
+      <button type="submit">Send Request</button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script>
+function sendToWhatsApp(event, form) {
+  event.preventDefault();
+
+  let name = form.fullname.value;
+  let email = form.email.value;
+  let phone = form.phone.value;
+  let training = form.training.value;
+  let message = form.message.value;
+
+  let whatsappNumber = "8793091194";
+
+  let text =
+`*Corporate Training Request*
+👤 Name: ${name}
+📧 Email: ${email}
+📞 Phone: ${phone}
+🎓 Training: ${training}
+💬 Message: ${message}`;
+
+  let url = "https://wa.me/91" + whatsappNumber + "?text=" + encodeURIComponent(text);
+
+  // open whatsapp
+  window.open(url, "_blank");
+
+  // show popup
+  let popup = document.getElementById("popupMsg");
+  popup.style.display = "block";
+
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 3000);
+
+  // reset form
+  form.reset();
+}
+
+function goCourse(course){
+    window.location.href =
+    "syllabus.html?course=" + course;
+}
+
+
+</script>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
